@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Attendance</title>
+    <script>
+        async function markAttendance(event) {
+            event.preventDefault();
+
+            const baseUrl = "https://attendence-management-system.onrender.com";  // Replace with your base URL
+            const formData = new FormData(document.getElementById('attendanceForm'));
+
+            try {
+                const response = await fetch(`${baseUrl}/api/mark-attendance`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                alert(result.message);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h2>Mark Attendance</h2>
+
+    <form id="attendanceForm" enctype="multipart/form-data" onsubmit="markAttendance(event)">
+        <label for="image">Upload Image:</label><br>
+        <input type="file" id="image" name="image" accept="image/*" required><br><br>
+
+        <input type="submit" value="Mark Attendance">
+    </form>
+
+</body>
+</html>
