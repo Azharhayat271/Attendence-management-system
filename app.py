@@ -15,16 +15,16 @@ app = FastAPI()
 register_heif_opener()
 
 # MongoDB setup
-MONGO_URI = "mongodb://azharhayat271:root@cluster0-shard-00-00.gsfhe.mongodb.net:27017,cluster0-shard-00-01.gsfhe.mongodb.net:27017,cluster0-shard-00-02.gsfhe.mongodb.net:27017/?replicaSet=atlas-tmgaqk-shard-0&ssl=true&authSource=admin"
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://azharhayat271:root@cluster0-shard-00-00.gsfhe.mongodb.net:27017,cluster0-shard-00-01.gsfhe.mongodb.net:27017,cluster0-shard-00-02.gsfhe.mongodb.net:27017/?replicaSet=atlas-tmgaqk-shard-0&ssl=true&authSource=admin")
 mongo_client = MongoClient(MONGO_URI)
 db = mongo_client['attendance']
 students_collection = db['students']
 
 # Supabase S3 storage
-SUPABASE_S3_ENDPOINT = "https://oeotkzssxlrxksfnemcm.supabase.co/storage/v1/s3"
-ACCESS_KEY = "7f9a61644903b40b7d95bcaaf9b23f32"
-SECRET_KEY = "5d678a1c88138687b7ff9543926260962a6685ebe6e07aa91e170de6eba98ed6"
-BUCKET_NAME = "boost"
+SUPABASE_S3_ENDPOINT = os.getenv("SUPABASE_S3_ENDPOINT", "https://oeotkzssxlrxksfnemcm.supabase.co/storage/v1/s3")
+ACCESS_KEY = os.getenv("SUPABASE_ACCESS_KEY", "7f9a61644903b40b7d95bcaaf9b23f32")
+SECRET_KEY = os.getenv("SUPABASE_SECRET_KEY", "5d678a1c88138687b7ff9543926260962a6685ebe6e07aa91e170de6eba98ed6")
+BUCKET_NAME = os.getenv("SUPABASE_BUCKET_NAME", "boost")
 
 s3_client = boto3.client(
     's3',
